@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<cache xmlns="http://geode.apache.org/schema/cache"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	copy-on-read="false" is-server="false" lock-lease="120"
+	lock-timeout="60" search-timeout="300" version="1.0"
+	xsi:schemaLocation="http://geode.apache.org/schema/cache http://geode.apache.org/schema/cache/cache-1.0.xsd">
+	
+	<disk-store allow-force-compaction="true"
+		auto-compact="false" name="pdx-disk-store">
+		<disk-dirs>
+			<disk-dir>disk-stores/pdx</disk-dir>
+		</disk-dirs>
+	</disk-store>
+	
+	<disk-store allow-force-compaction="true"
+		auto-compact="false" name="qvxp-monolith-referenceData-disk-store">
+		<disk-dirs>
+			<disk-dir>disk-stores/region/qvxp-monolith-referenceData</disk-dir>
+		</disk-dirs>
+	</disk-store>
+	
+	<disk-store allow-force-compaction="true"
+		auto-compact="false" name="PortfoliosRefRegion-disk-store">
+		<disk-dirs>
+			<disk-dir>disk-stores/region/PortfoliosRefRegion</disk-dir>
+		</disk-dirs>
+	</disk-store>
+	
+	<disk-store allow-force-compaction="true"
+		auto-compact="false" name="qvxp-gemfire-poc-region-disk-store">
+		<disk-dirs>
+			<disk-dir>disk-stores/region/qvxp-gemfire-poc-region</disk-dir>
+		</disk-dirs>
+	</disk-store>
+	
+	<disk-store allow-force-compaction="true"
+		auto-compact="false" name="pet-names-disk-store">
+		<disk-dirs>
+			<disk-dir>disk-stores/region/pet-names</disk-dir>
+		</disk-dirs>
+	</disk-store>
+	
+	<disk-store allow-force-compaction="true"
+		auto-compact="false" name="qvxpUserAuthorizationDataCache-disk-store">
+		<disk-dirs>
+			<disk-dir>disk-stores/region/qvxpUserAuthorizationDataCache
+			</disk-dir>
+		</disk-dirs>
+	</disk-store>
+	
+	<disk-store allow-force-compaction="true"
+		auto-compact="false" name="qvxpGlobalDataCache-disk-store">
+		<disk-dirs>
+			<disk-dir>disk-stores/region/qvxpGlobalDataCache</disk-dir>
+		</disk-dirs>
+	</disk-store>
+	
+	<disk-store allow-force-compaction="true"
+		auto-compact="false" name="qvxpCustomerDataCache-disk-store">
+		<disk-dirs>
+			<disk-dir>disk-stores/region/qvxpCustomerDataCache</disk-dir>
+		</disk-dirs>
+	</disk-store>
+	
+	<disk-store allow-force-compaction="true"
+		auto-compact="false" name="qvxpReferenceDataCache-disk-store">
+		<disk-dirs>
+			<disk-dir>disk-stores/region/qvxpReferenceDataCache</disk-dir>
+		</disk-dirs>
+	</disk-store>
+
+	<pdx disk-store-name="pdx-disk-store" persistent="true"
+		read-serialized="true">
+		<pdx-serializer>
+			<class-name>com.tmobile.qvxp.internal.pdx.QVReflectionBasedAutoSerializer</class-name>
+		</pdx-serializer>
+	</pdx>
+
+	<region name="qvxp.monolith.referenceData">
+		<region-attributes data-policy="persistent-replicate"
+			scope="distributed-ack" disk-store-name="qvxp-monolith-referenceData-disk-store" />
+	</region>
+
+	<region name="PortfoliosRefRegion">
+		<region-attributes data-policy="persistent-replicate"
+			scope="distributed-ack" disk-store-name="PortfoliosRefRegion-disk-store"/>
+	</region>
+
+	<region name="qvxp_gemfire_poc_region">
+		<region-attributes data-policy="persistent-partition"
+			statistics-enabled="true" disk-store-name="qvxp-gemfire-poc-region-disk-store">
+			<entry-idle-time>
+				<expiration-attributes action="destroy"
+					timeout="1800" />
+			</entry-idle-time>
+			<partition-attributes redundant-copies="1" />
+		</region-attributes>
+	</region>
+
+	<region name="pet_names">
+		<region-attributes data-policy="persistent-partition" disk-store-name="pet-names-disk-store">
+			<partition-attributes redundant-copies="1" />
+			<eviction-attributes>
+				<lru-heap-percentage action="local-destroy" />
+			</eviction-attributes>
+		</region-attributes>
+	</region>
+
+	<region name="qvxpUserAuthorizationDataCache">
+		<region-attributes data-policy="persistent-partition"
+			statistics-enabled="true" disk-store-name="qvxpUserAuthorizationDataCache-disk-store">
+			<entry-idle-time>
+				<expiration-attributes action="destroy"
+					timeout="1800" />
+			</entry-idle-time>
+			<partition-attributes redundant-copies="1" />
+		</region-attributes>
+	</region>
+
+	<region name="qvxpGlobalDataCache">
+		<region-attributes data-policy="persistent-partition"
+			statistics-enabled="true" disk-store-name="qvxpGlobalDataCache-disk-store">
+			<entry-idle-time>
+				<expiration-attributes action="destroy"
+					timeout="1800" />
+			</entry-idle-time>
+			<partition-attributes redundant-copies="1" />
+		</region-attributes>
+	</region>
+
+	<region name="qvxpCustomerDataCache">
+		<region-attributes data-policy="persistent-partition"
+			statistics-enabled="true" disk-store-name="qvxpCustomerDataCache-disk-store">
+			<entry-idle-time>
+				<expiration-attributes action="destroy"
+					timeout="1800" />
+			</entry-idle-time>
+			<partition-attributes redundant-copies="1" />
+		</region-attributes>
+	</region>
+
+	<region name="qvxpReferenceDataCache">
+		<region-attributes data-policy="persistent-partition"
+			statistics-enabled="true" disk-store-name="qvxpReferenceDataCache-disk-store">
+			<entry-idle-time>
+				<expiration-attributes action="destroy"
+					timeout="1800" />
+			</entry-idle-time>
+			<partition-attributes redundant-copies="1" />
+		</region-attributes>
+	</region>
+
+</cache>
+
